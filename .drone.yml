@@ -1,0 +1,22 @@
+---
+kind: pipeline
+name: build-app
+
+steps:
+- name: build-dotnet
+  image: mcr.microsoft.com/dotnet/sdk:6.0
+  commands:
+  - dotnet build
+
+steps:
+- name: build-docker
+  image: docker:dind
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+
+trigger:
+  branch:
+  - main
+  event:
+  - push
