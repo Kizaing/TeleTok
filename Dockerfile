@@ -11,4 +11,4 @@ WORKDIR /app/teletok
 
 COPY --from=build-task /build/bin/Debug/net6.0/publish/* /app/teletok/
 
-CMD [ "TeleTok" ]
+CMD [ "./TeleTok" ]
