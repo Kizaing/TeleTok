@@ -23,8 +23,8 @@ steps:
 
 
 # Commented out until stuff actually works
-#trigger:
-#  branch:
-#  - main
-#  event:
-#  - push
+trigger:
+  branch:
+  - main
+  event:
+  - push
