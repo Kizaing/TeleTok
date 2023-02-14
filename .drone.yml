@@ -3,6 +3,7 @@ kind: pipeline
 type: docker
 name: publish-bot
 
+steps:
 - name: build-image
   image: plugins/docker
   settings:
