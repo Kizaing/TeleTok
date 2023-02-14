@@ -15,8 +15,9 @@ steps:
   - name: dockersock
     path: /var/run/docker.sock
 
-trigger:
-  branch:
-  - main
-  event:
-  - push
+# Commented out until stuff actually works
+#trigger:
+#  branch:
+#  - main
+#  event:
+#  - push
