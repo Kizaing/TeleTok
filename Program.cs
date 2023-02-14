@@ -1,12 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
-using System.Web;
-using System.Text.RegularExpressions;
-using Telegram.Bot;
-using Telegram.Bot.Exceptions;
-using Telegram.Bot.Polling;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
 
 namespace TeleTok
 {
@@ -24,6 +17,9 @@ namespace TeleTok
         {
             
             TelegramListener listener = new TelegramListener();
+            Console.WriteLine("Now listening...");
+
+            listener.RunListener();
             
         }
     }

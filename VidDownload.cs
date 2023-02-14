@@ -7,7 +7,7 @@ namespace TeleTok
     public class VidDownload
     {
         // Takes the scraped TikTok URL and appends it to the proxy downloader link then returns it
-        public string TikTokURL(string videourl)
+        public static string TikTokURL(string videourl)
         {
             string url = videourl;
             string proxyUrl;
@@ -24,7 +24,6 @@ namespace TeleTok
         }
 
         // Runs the URL through a web request then returns the full url
-        // If the URL is already the full one, it won't really do anything but will catch shortened ones
         static string UnshortenUrl(string videourl)
         {
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(videourl);

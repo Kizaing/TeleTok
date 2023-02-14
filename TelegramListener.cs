@@ -2,7 +2,7 @@ using System;
 using System.Configuration;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
-using Telegram.Bot.Polling;
+using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
@@ -10,7 +10,7 @@ namespace TeleTok
 {
     public class TelegramListener
     {
-        public RunListener()
+        public void RunListener()
         {
             var botClient = new TelegramBotClient(TeleTok.token);
             using var cts = new CancellationTokenSource();
@@ -23,18 +23,15 @@ namespace TeleTok
 
             botClient.StartReceiving(
                 updateHandler: HandleUpdateAsync,
-                pollingErrorHandler: HandlePollingErrorAsync,
+                errorHandler: HandlePollingErrorAsync,
                 receiverOptions: receiverOptions,
                 cancellationToken: cts.Token
             );
 
-            var me = await botClient.GetMeAsync();
-
-            Console.WriteLine($"Start listening for @{me.Username}");
             while (true)
             {
                 // Do nothing until the stuff happens
-            }
+            };
 
             cts.Cancel();
         }
@@ -69,14 +66,6 @@ namespace TeleTok
                     );
                 }
             }
-
-            Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
-
-            // Echo received message text
-            Message sentMessage = await botClient.SendTextMessageAsync(
-                chatId: chatId,
-                text: "You said:\n" + messageText,
-                cancellationToken: cancellationToken);
         }
 
         Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
