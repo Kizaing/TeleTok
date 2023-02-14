@@ -12,7 +12,7 @@ steps:
       from_secret: DOCKER_USER
     password:
       from_secret: DOCKER_PASS
-    repo: git.kizaing.ca/kizaing/TeleTok
+    repo: git.kizaing.ca/kizaing/teletok
     tags: latest
 
 # Commented out until stuff actually works
