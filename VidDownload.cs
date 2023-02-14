@@ -18,6 +18,7 @@ namespace TeleTok
             }
 
             proxyUrl = TeleTok.ptInstance + "/download?url=" + url;
+            Console.WriteLine("Video for " + url + " has been sent..");
 
             return proxyUrl;
         }
