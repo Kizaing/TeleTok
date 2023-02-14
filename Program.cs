@@ -60,12 +60,27 @@ namespace TeleTok
                 return;
 
             var chatId = message.Chat.Id;
+            var messageText = update.Message.Text;
 
-            bool isUri = Uri.IsWellFormedUriString(message.ToString(), UriKind.RelativeOrAbsolute);
+            string videoPath;
 
+            // Checks if the text contains a valid URL
+            bool isUri = Uri.IsWellFormedUriString(messageText, UriKind.RelativeOrAbsolute);
+
+            // Passes the url along to the video downloader if it is valid AND a tiktok link
             if (isUri)
             {
-                Regex isTikTok = new Regex(@"(?x)(http(s)?:\/\/)?(?:www|m)\.(?:tiktok.com)\/(?:v|embed|trending)(?:\/)?(?:\?shareId=)?(?P<id>[\da-z]+)", RegexOptions.Singleline);
+                if(messageText.Contains("tiktok.com"))
+                {
+                    videoPath = VidDownload.TikTokUrl(messageText);
+
+                    Message ttVideo = await botClient.SendVideoAsync(
+                        chatId: chatId,
+                        videoPath: videoPath,
+                        supportsStreaming: true,
+                        cancellationToken: cancellationToken
+                    );
+                }
             }
 
             Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
