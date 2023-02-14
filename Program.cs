@@ -10,17 +10,18 @@ using Telegram.Bot.Types.Enums;
 
 namespace TeleTok
 {
-    class TeleTok
+    public class TeleTok
     {
+        public static IConfigurationRoot config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("config.json", true)
+            .Build();
+
+        public static string token = config.GetSection("TeleTokConf:token").Value;
+        public static string ptInstance = config.GetSection("TeleTokConf:proxitokInstance").Value;
+
         static async Task Main(string[] args)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("config.json", true)
-                .Build();
-
-            var token = config.GetSection("TeleTokConf:token").Value;
-
             var botClient = new TelegramBotClient(token);
             using var cts = new CancellationTokenSource();
 
@@ -60,9 +61,8 @@ namespace TeleTok
                 return;
 
             var chatId = message.Chat.Id;
-            var messageText = update.Message.Text;
 
-            string videoPath;
+            string proxyUrl;
 
             // Checks if the text contains a valid URL
             bool isUri = Uri.IsWellFormedUriString(messageText, UriKind.RelativeOrAbsolute);
@@ -72,12 +72,11 @@ namespace TeleTok
             {
                 if(messageText.Contains("tiktok.com"))
                 {
-                    videoPath = VidDownload.TikTokUrl(messageText);
+                    proxyUrl = VidDownload.TikTokURL(messageText);
 
                     Message ttVideo = await botClient.SendVideoAsync(
                         chatId: chatId,
-                        videoPath: videoPath,
-                        supportsStreaming: true,
+                        video: proxyUrl,
                         cancellationToken: cancellationToken
                     );
                 }

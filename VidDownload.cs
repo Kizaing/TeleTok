@@ -1,37 +1,29 @@
 using System;
 using System.Diagnostics;
+using System.Net;
 
 namespace TeleTok
 {
     public class VidDownload
     {
-        static void TikTokURL(string videourl)
+        // Takes the scraped TikTok URL and appends it to the proxy downloader link then returns it
+        public string TikTokURL(string videourl)
         {
             string url = videourl;
+            string proxyUrl;
 
             if(url.Contains("vm.tiktok.com"))
             {
                 url = UnshortenUrl(url);
             }
 
-            var proc = new Process 
-            {
-                // Function downloads tiktok urls passed from the listener
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = "/bin/bash",
-                    Arguments = "-c \"tiktok-scraper --filepath /app/videos -d " + videourl + "\"",
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
-                }
-            };
+            proxyUrl = TeleTok.ptInstance + "/download?url=" + url;
 
-            proc.Start();
-            proc.WaitForExit();
-
+            return proxyUrl;
         }
 
+        // Runs the URL through a web request then returns the full url
+        // If the URL is already the full one, it won't really do anything but will catch shortened ones
         static string UnshortenUrl(string videourl)
         {
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create(videourl);
