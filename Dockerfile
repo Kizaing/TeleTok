@@ -5,7 +5,7 @@ COPY . /build
 RUN cd /build && dotnet publish
 
 # Actually runs the bot
-FROM mcr.microsoft.com/dotnet/runtime:6.0-alpine3
+FROM mcr.microsoft.com/dotnet/runtime:6.0
 
 WORKDIR /app/teletok
 
