@@ -1,6 +1,6 @@
 {
     "TeleTokConf": {
         "token": "INSERT TOKEN HERE",
-        "port": 5000
+        "proxitokInstance": "PROXITOK INSTANCE URL"
     }
 }
