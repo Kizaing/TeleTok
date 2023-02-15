@@ -55,22 +55,15 @@ namespace TeleTok
             // Passes the url along to the video downloader if it is valid AND a tiktok link
             if (isUri)
             {
-                try
+                if(messageText.Contains("tiktok.com"))
                 {
-                    if(messageText.Contains("tiktok.com"))
-                    {
-                        proxyUrl = VidDownload.TikTokURL(messageText);
+                    proxyUrl = VidDownload.TikTokURL(messageText);
 
-                        Message ttVideo = await botClient.SendVideoAsync(
-                            chatId: chatId,
-                            video: proxyUrl,
-                            cancellationToken: cancellationToken
-                        );
-                    }
-                }
-                catch 
-                {
-                    Console.WriteLine("Valid TikTok URI was sent, but was not a video!");
+                    Message ttVideo = await botClient.SendVideoAsync(
+                        chatId: chatId,
+                        video: proxyUrl,
+                        cancellationToken: cancellationToken
+                    );
                 }
             }
         }
