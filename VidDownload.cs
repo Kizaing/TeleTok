@@ -21,6 +21,8 @@ namespace TeleTok
 
             proxyUrl = CreateDownloadLink(url);
 
+            TeleTok.LogMessage("");
+
             return proxyUrl;
         }
 
