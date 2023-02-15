@@ -12,13 +12,15 @@ namespace TeleTok
             string url = videourl;
             string proxyUrl;
 
+            DateTime now =DateTime.Now;
+
             if(url.Contains("vm.tiktok.com"))
             {
                 url = UnshortenUrl(url);
             }
 
             proxyUrl = TeleTok.ptInstance + "/download?url=" + url;
-            Console.WriteLine("Video for " + url + " has been sent..");
+            Console.WriteLine("[" + now.ToString() + "] " + "Video for " + url + " has been sent..");
 
             return proxyUrl;
         }
