@@ -12,15 +12,14 @@ namespace TeleTok
             string url = videourl;
             string proxyUrl;
 
-            DateTime now =DateTime.Now;
+            TeleTok.LogMessage("Video for " + videourl + " processing..");
 
             if(url.Contains("vm.tiktok.com"))
             {
                 url = UnshortenUrl(url);
             }
 
-            proxyUrl = TeleTok.ptInstance + "/download?url=" + url;
-            Console.WriteLine("[" + now.ToString() + "] " + "Video for " + url + " has been sent..");
+            proxyUrl = CreateDownloadLink(url);
 
             return proxyUrl;
         }
@@ -34,6 +33,26 @@ namespace TeleTok
             string realUrl = resp.Headers["Location"];
 
             return realUrl;
+        }
+
+        //Breaks apart the URL and extracts the User and Video ID to be processed into a working download link
+        static string CreateDownloadLink(string videourl)
+        {
+            Uri segmentedUri = new Uri(videourl);
+            segmentedUri = new Uri(segmentedUri.AbsoluteUri.Replace(segmentedUri.Query, string.Empty));
+
+            string videoUser = segmentedUri.Segments[1];
+            videoUser = videoUser.Replace(@"/", "");
+            string videoID = segmentedUri.Segments[3];
+
+            string fixedUrl = "https://www.tiktok.com/" + videoUser + "/video/" + videoID + @"&id=" + videoID + @"&user=" + videoUser.Remove(0);
+
+            string proxyLink = TeleTok.ptInstance + "/download?url=" + fixedUrl;
+
+            TeleTok.LogMessage("Input User ID is: " + videoUser);
+            TeleTok.LogMessage("Input video ID is: " + videoID);
+
+            return proxyLink;
         }
     }
 }
