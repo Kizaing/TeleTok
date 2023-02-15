@@ -1,2 +1,4 @@
 bin
 obj
+.vscode
+config.Dev.json
