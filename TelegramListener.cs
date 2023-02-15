@@ -77,7 +77,7 @@ namespace TeleTok
                 _ => exception.ToString()
             };
 
-            Console.WriteLine(ErrorMessage);
+            TeleTok.LogMessage(ErrorMessage);
             return Task.CompletedTask;
         }
     }
