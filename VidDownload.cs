@@ -47,7 +47,7 @@ namespace TeleTok
             videoUser = videoUser.Replace(@"/", "");
             string videoID = segmentedUri.Segments[3];
 
-            string fixedUrl = "https://www.tiktok.com/" + videoUser + "/video/" + videoID + @"&id=" + videoID + @"&user=" + videoUser.Remove(0);
+            string fixedUrl = "https://www.tiktok.com/" + videoUser + "/video/" + videoID + @"&id=" + videoID + @"&user=" + videoUser.Remove(0, 1);
 
             string proxyLink = TeleTok.ptInstance + "/download?url=" + fixedUrl;
 
