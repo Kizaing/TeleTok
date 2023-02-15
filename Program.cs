@@ -27,7 +27,7 @@ namespace TeleTok
             else
             {
                 TelegramListener listener = new TelegramListener();
-                Console.WriteLine("Now listening...");
+                LogMessage("Now listening...");
 
                 listener.RunListener();
             }            
