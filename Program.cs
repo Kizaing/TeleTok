@@ -22,5 +22,12 @@ namespace TeleTok
             listener.RunListener();
             
         }
+
+        public static void LogMessage(string text)
+        {   
+            DateTime now =DateTime.Now;
+
+            Console.WriteLine("[" + now.ToString() + "] " + text);
+        }
     }
 }
