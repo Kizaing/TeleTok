@@ -15,12 +15,22 @@ namespace TeleTok
 
         static async Task Main(string[] args)
         {
-            
-            TelegramListener listener = new TelegramListener();
-            Console.WriteLine("Now listening...");
+            //Checks if the config json data is valid
+            if(token == "" || token == null || token == "INSERT TOKEN HERE")
+            {
+                LogMessage("Telegram bot token is invalid! Exiting...");
+            }
+            else if(ptInstance == "" || ptInstance == null || ptInstance == "PROXITOK INSTANCE URL")
+            {
+                LogMessage("Proxitok instance is invalid! Exiting...");
+            }
+            else
+            {
+                TelegramListener listener = new TelegramListener();
+                Console.WriteLine("Now listening...");
 
-            listener.RunListener();
-            
+                listener.RunListener();
+            }            
         }
 
         public static void LogMessage(string text)
