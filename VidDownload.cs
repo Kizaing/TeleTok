@@ -21,7 +21,7 @@ namespace TeleTok
 
             proxyUrl = CreateDownloadLink(url);
 
-            TeleTok.LogMessage("");
+            TeleTok.LogMessage("Sending video link for " + proxyUrl);
 
             return proxyUrl;
         }
