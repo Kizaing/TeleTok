@@ -19,21 +19,23 @@ namespace TeleTok
 
         // Matrix bot config
         public static string matrixAddress = config.GetSection("TeleTokConf:matrixAddress").Value;
+        public static Uri mAddress;
         public static string mBotUser = config.GetSection("TeleTokConf:mBotUser").Value;
         public static string mBotPass = config.GetSection("TeleTokConf:mBotPass").Value;
 
         static async Task Main(string[] args)
         {
             //Checks to see what mode to run the bot in
+            LogMessage($"The current running config is: \n Bot Mode: {botMode} \n Telegram Token: {token} \n ProxiTok Instance: {ptInstance} \n Matrix Homeserver: {matrixAddress} \n Matrix Bot User: {mBotUser}");
 
             if(botMode == "telegram")
             {
                 //Checks if the config json data is valid
-                if(ConfigCheck(token) == false)
+                if(!ConfigCheck(token))
                 {
                     LogMessage("Telegram bot token is invalid! Exiting...");
                 }
-                else if(ConfigCheck(ptInstance) == false)
+                else if(!ConfigCheck(ptInstance))
                 {
                     LogMessage("Proxitok instance is invalid! Exiting...");
                 }
@@ -48,15 +50,20 @@ namespace TeleTok
             else if(botMode == "matrix")
             {
                 //Checks if the config json data is valid
-                if(ConfigCheck(matrixAddress) == false)
+                if(Uri.IsWellFormedUriString(matrixAddress, UriKind.Absolute))
                 {
-                    LogMessage("Synapse address is invalid! Exiting...");
+                    mAddress = new Uri(matrixAddress);
                 }
-                else if(ConfigCheck(mBotUser) == false)
+                else
+                {
+                    LogMessage("Matrix server address is not a valid URL! Exiting...");
+                }
+
+                if(!ConfigCheck(mBotUser))
                 {
                     LogMessage("Matrix bot username is invalid! Exiting...");
                 }
-                else if(ConfigCheck(mBotPass) == false)
+                else if(!ConfigCheck(mBotPass))
                 {
                     LogMessage("Matrix bot password is invalid! Exiting...");
                 }
@@ -65,7 +72,7 @@ namespace TeleTok
                     MatrixListener mListener = new MatrixListener();
                     LogMessage("Now listening...");
 
-                    mListener.RunListener();
+                    await mListener.RunListener();
                 }              
             }
             else
