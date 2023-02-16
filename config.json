@@ -1,6 +1,10 @@
 {
     "TeleTokConf": {
+        "botMode": "telegram",
         "token": "INSERT TOKEN HERE",
-        "proxitokInstance": "PROXITOK INSTANCE URL"
+        "ptInstance": "PROXITOK INSTANCE URL",
+        "matrixAddress": "SYNAPSE SERVER URL",
+        "mBotUser": "MATRIX BOT USERNAME",
+        "mBotPass": "MATRIX BOT PASSWORD"
     }
 }
