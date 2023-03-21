@@ -16,20 +16,20 @@ jobs:
           token: ${{ secrets.GITEA_TOKEN }}
 
       - name: Login to DockerHub
-        uses: docker/login-action@v2
+        uses: https://github.com/docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Login to Gitea registry
-        uses: docker/login-action@v2
+        uses: https://github.com/docker/login-action@v2
         with:
           registry: git.kizaing.ca
           username: ${{ gitea.actor }}
           password: ${{ secrets.GITEA_TOKEN }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: https://github.com/docker/build-push-action@v4
         with:
           context: .
           push: true
