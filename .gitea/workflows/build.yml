@@ -1,8 +1,7 @@
+# .gitea/workflows/build.yaml
 name: Publish Docker image
 
-on:
-  release:
-    types: [published]
+on: [push]
 
 jobs:
   push_to_registry:

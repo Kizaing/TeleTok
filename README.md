@@ -1,5 +1,3 @@
-[![Build Status](https://ci.kizaing.ca/api/badges/kizaing/TeleTok/status.svg)](https://ci.kizaing.ca/kizaing/TeleTok)
-
 # TeleTok Telegram Bot
 This bot will monitor any chats for TikTok links that are posted, and then will run the link through a [ProxiTok](https://github.com/pablouser1/ProxiTok) instance to generate a download link. The resulting video file will then get directly uploaded directly to your chat.
 
